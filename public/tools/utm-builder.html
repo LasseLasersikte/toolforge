@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UTM Link Builder — ToolForge</title>
+<meta name="description" content="Build trackable campaign URLs for ads, email, and social.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>UTM Link Builder</h1>
+  <p class="sub">Build trackable campaign URLs for ads, email, and social.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="utm-url">Base URL</label>
+      <input id="utm-url" type="text" placeholder="https://example.com/landing">
+      <label for="utm-source">Source</label>
+      <input id="utm-source" type="text" placeholder="newsletter">
+      <label for="utm-medium">Medium</label>
+      <input id="utm-medium" type="text" placeholder="email">
+      <label for="utm-campaign">Campaign</label>
+      <input id="utm-campaign" type="text" placeholder="fall-launch">
+      <div class="tool-out">
+        <label>Generated URL</label>
+        <input id="utm-out" type="text" readonly>
+        <div style="margin-top:12px"><button class="btn btn-primary" id="utm-copy">Copy link</button></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const ids = ['utm-url','utm-source','utm-medium','utm-campaign'];
+      function build(){
+        const url = document.getElementById('utm-url').value.trim();
+        if (!url) { document.getElementById('utm-out').value=''; return; }
+        try {
+          const u = new URL(url);
+          const s = document.getElementById('utm-source').value.trim();
+          const m = document.getElementById('utm-medium').value.trim();
+          const c = document.getElementById('utm-campaign').value.trim();
+          if (s) u.searchParams.set('utm_source', s);
+          if (m) u.searchParams.set('utm_medium', m);
+          if (c) u.searchParams.set('utm_campaign', c);
+          document.getElementById('utm-out').value = u.toString();
+        } catch(e) { document.getElementById('utm-out').value = 'Enter a valid URL (include https://)'; }
+      }
+      ids.forEach(id => document.getElementById(id).addEventListener('input', build));
+      document.getElementById('utm-copy').addEventListener('click', ()=>{
+        const out = document.getElementById('utm-out'); out.select(); document.execCommand('copy');
+      });
+    
+</script>
+</body>
+</html>

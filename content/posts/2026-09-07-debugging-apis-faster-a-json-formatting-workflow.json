@@ -1,0 +1,14 @@
+{
+  "slug": "debugging-apis-faster-a-json-formatting-workflow",
+  "title": "Debugging APIs Faster: A JSON Formatting Workflow",
+  "date": "2026-09-07",
+  "tool": "json-formatter",
+  "intro": "Minified API responses are unreadable. A fast beautify-and-validate loop saves real debugging time.",
+  "points": [
+    "Paste the raw response and beautify it before you start reading.",
+    "Validate first — a syntax error often explains the whole bug.",
+    "Minify before sending large payloads back into a request body.",
+    "Keep formatting client-side so you're never pasting real data into a third-party server.",
+    "Bookmark the formatter for repeat use during integration work."
+  ]
+}

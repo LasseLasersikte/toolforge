@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorem Ipsum Generator — ToolForge</title>
+<meta name="description" content="Generate placeholder text by paragraph, sentence, or word count.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>Lorem Ipsum Generator</h1>
+  <p class="sub">Generate placeholder text by paragraph, sentence, or word count.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="li-count">Paragraphs</label>
+      <input id="li-count" type="number" value="3" min="1" max="20">
+      <div style="margin-top:12px"><button class="btn btn-primary" id="li-gen">Generate</button></div>
+      <div class="tool-out"><textarea id="li-out" style="min-height:220px"></textarea></div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const WORDS = "lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat".split(' ');
+      function sentence(){
+        const n = 8 + Math.floor(Math.random()*8);
+        let words = [];
+        for (let i=0;i<n;i++) words.push(WORDS[Math.floor(Math.random()*WORDS.length)]);
+        let s = words.join(' ');
+        return s[0].toUpperCase() + s.slice(1) + '.';
+      }
+      function paragraph(){
+        const n = 3 + Math.floor(Math.random()*3);
+        let sentences = [];
+        for (let i=0;i<n;i++) sentences.push(sentence());
+        return sentences.join(' ');
+      }
+      document.getElementById('li-gen').addEventListener('click', ()=>{
+        const n = parseInt(document.getElementById('li-count').value,10) || 1;
+        const paras = [];
+        for (let i=0;i<n;i++) paras.push(paragraph());
+        document.getElementById('li-out').value = paras.join('\n\n');
+      });
+      document.getElementById('li-gen').click();
+    
+</script>
+</body>
+</html>

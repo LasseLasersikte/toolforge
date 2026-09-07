@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unit Converter — ToolForge</title>
+<meta name="description" content="Convert length, weight, temperature, and data sizes instantly.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>Unit Converter</h1>
+  <p class="sub">Convert length, weight, temperature, and data sizes instantly.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="uc-category">Category</label>
+      <select id="uc-category">
+        <option value="length">Length</option>
+        <option value="weight">Weight</option>
+        <option value="temp">Temperature</option>
+        <option value="data">Data size</option>
+      </select>
+      <label for="uc-value">Value</label>
+      <input id="uc-value" type="number" value="1">
+      <div style="display:flex;gap:12px;margin-top:10px">
+        <div style="flex:1"><label for="uc-from">From</label><select id="uc-from"></select></div>
+        <div style="flex:1"><label for="uc-to">To</label><select id="uc-to"></select></div>
+      </div>
+      <div class="tool-out"><h3 id="uc-result" style="font-size:1.6rem">—</h3></div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const UNITS = {
+        length: { m:1, km:1000, cm:0.01, mm:0.001, mi:1609.34, yd:0.9144, ft:0.3048, in:0.0254 },
+        weight: { kg:1, g:0.001, mg:0.000001, lb:0.453592, oz:0.0283495 },
+        data: { B:1, KB:1024, MB:1024**2, GB:1024**3, TB:1024**4 },
+      };
+      const cat = document.getElementById('uc-category');
+      const from = document.getElementById('uc-from');
+      const to = document.getElementById('uc-to');
+      const val = document.getElementById('uc-value');
+      const result = document.getElementById('uc-result');
+      function populate(){
+        const c = cat.value;
+        from.innerHTML = ''; to.innerHTML = '';
+        if (c === 'temp') {
+          ['C','F','K'].forEach(u => { from.add(new Option(u,u)); to.add(new Option(u,u)); });
+          to.value = 'F';
+        } else {
+          Object.keys(UNITS[c]).forEach(u => { from.add(new Option(u,u)); to.add(new Option(u,u)); });
+          to.selectedIndex = 1;
+        }
+        convert();
+      }
+      function convert(){
+        const c = cat.value; const v = parseFloat(val.value) || 0;
+        let out;
+        if (c === 'temp') {
+          let celsius;
+          if (from.value==='C') celsius = v;
+          else if (from.value==='F') celsius = (v-32) * 5/9;
+          else celsius = v - 273.15;
+          if (to.value==='C') out = celsius;
+          else if (to.value==='F') out = celsius*9/5+32;
+          else out = celsius + 273.15;
+        } else {
+          const base = v * UNITS[c][from.value];
+          out = base / UNITS[c][to.value];
+        }
+        result.textContent = (Math.round(out*10000)/10000) + ' ' + to.value;
+      }
+      [cat].forEach(el=>el.addEventListener('change', populate));
+      [from,to,val].forEach(el=>el.addEventListener('input', convert));
+      populate();
+    
+</script>
+</body>
+</html>

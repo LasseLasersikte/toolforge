@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://toolforge.example.com/</loc></url>
+  <url><loc>https://toolforge.example.com/blog/</loc></url>
+  <url><loc>https://toolforge.example.com/blog/5-smart-ways-to-use-qr-codes-for-your-small-business.html</loc></url>
+  <url><loc>https://toolforge.example.com/blog/debugging-apis-faster-a-json-formatting-workflow.html</loc></url>
+  <url><loc>https://toolforge.example.com/blog/why-random-passwords-still-beat-password-managers-suggestions.html</loc></url>
+  <url><loc>https://toolforge.example.com/pricing.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/</loc></url>
+  <url><loc>https://toolforge.example.com/tools/case-converter.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/color-picker.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/image-compressor.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/json-formatter.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/lorem-ipsum.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/password-generator.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/qr-generator.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/unit-converter.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/utm-builder.html</loc></url>
+  <url><loc>https://toolforge.example.com/tools/word-counter.html</loc></url>
+</urlset>

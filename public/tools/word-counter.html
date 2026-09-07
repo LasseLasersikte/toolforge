@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Word & Character Counter — ToolForge</title>
+<meta name="description" content="Live word, character, and sentence counts as you type or paste.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>Word & Character Counter</h1>
+  <p class="sub">Live word, character, and sentence counts as you type or paste.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="wc-text">Your text</label>
+      <textarea id="wc-text" placeholder="Paste or type here..."></textarea>
+      <div class="tool-out grid grid-4">
+        <div class="card"><h3 id="wc-words">0</h3><p>Words</p></div>
+        <div class="card"><h3 id="wc-chars">0</h3><p>Characters</p></div>
+        <div class="card"><h3 id="wc-sentences">0</h3><p>Sentences</p></div>
+        <div class="card"><h3 id="wc-read">0 min</h3><p>Read time</p></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const t = document.getElementById('wc-text');
+      function update(){
+        const v = t.value;
+        const words = (v.trim().match(/\S+/g) || []).length;
+        const chars = v.length;
+        const sentences = (v.match(/[.!?]+/g) || []).length;
+        document.getElementById('wc-words').textContent = words;
+        document.getElementById('wc-chars').textContent = chars;
+        document.getElementById('wc-sentences').textContent = sentences;
+        document.getElementById('wc-read').textContent = Math.max(1, Math.round(words/200)) + ' min';
+      }
+      t.addEventListener('input', update);
+      update();
+    
+</script>
+</body>
+</html>

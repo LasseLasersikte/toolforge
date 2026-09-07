@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Image Compressor — ToolForge</title>
+<meta name="description" content="Shrink JPG and PNG images in your browser, no upload required.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>Image Compressor</h1>
+  <p class="sub">Shrink JPG and PNG images in your browser, no upload required.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="ic-file">Choose an image</label>
+      <input id="ic-file" type="file" accept="image/*">
+      <label for="ic-quality">Quality: <span id="ic-quality-val">0.7</span></label>
+      <input id="ic-quality" type="range" min="0.1" max="1" step="0.05" value="0.7" style="width:100%">
+      <div class="tool-out" style="text-align:center">
+        <img id="ic-preview" style="max-width:100%;border-radius:8px;margin-top:10px;display:none">
+        <p id="ic-sizes" style="color:var(--text-dim);font-size:.85rem"></p>
+        <a id="ic-download" class="btn btn-primary" style="display:none" download="compressed.jpg">Download compressed image</a>
+      </div>
+      <p style="color:var(--text-dim);font-size:.8rem;margin-top:10px">Free tier: 1 image at a time. <a href="/pricing.html">Upgrade to Pro</a> for batch compression.</p>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const fileInput = document.getElementById('ic-file');
+      const quality = document.getElementById('ic-quality');
+      const qualityVal = document.getElementById('ic-quality-val');
+      quality.addEventListener('input', ()=> qualityVal.textContent = quality.value);
+      fileInput.addEventListener('change', () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = e => { img.src = e.target.result; };
+        reader.readAsDataURL(file);
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width; canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const preview = document.getElementById('ic-preview');
+            preview.src = url; preview.style.display = 'block';
+            const dl = document.getElementById('ic-download');
+            dl.href = url; dl.style.display = 'inline-flex';
+            document.getElementById('ic-sizes').textContent =
+              'Original: ' + Math.round(file.size/1024) + ' KB  →  Compressed: ' + Math.round(blob.size/1024) + ' KB';
+          }, 'image/jpeg', parseFloat(quality.value));
+        };
+      });
+    
+</script>
+</body>
+</html>

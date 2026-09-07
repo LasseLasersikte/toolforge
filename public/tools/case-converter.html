@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text Case Converter — ToolForge</title>
+<meta name="description" content="Convert text to UPPERCASE, lowercase, Title Case, camelCase, and more.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>Text Case Converter</h1>
+  <p class="sub">Convert text to UPPERCASE, lowercase, Title Case, camelCase, and more.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="cc-in">Input</label>
+      <textarea id="cc-in" placeholder="Type or paste text..."></textarea>
+      <div class="tool-out grid grid-3">
+        <button class="btn btn-ghost" data-mode="upper">UPPERCASE</button>
+        <button class="btn btn-ghost" data-mode="lower">lowercase</button>
+        <button class="btn btn-ghost" data-mode="title">Title Case</button>
+        <button class="btn btn-ghost" data-mode="sentence">Sentence case</button>
+        <button class="btn btn-ghost" data-mode="camel">camelCase</button>
+        <button class="btn btn-ghost" data-mode="snake">snake_case</button>
+      </div>
+      <label style="margin-top:18px">Output</label>
+      <textarea id="cc-out" readonly></textarea>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const inp = document.getElementById('cc-in');
+      const out = document.getElementById('cc-out');
+      function words(s){ return s.trim().split(/\s+/).filter(Boolean); }
+      const modes = {
+        upper: s => s.toUpperCase(),
+        lower: s => s.toLowerCase(),
+        title: s => words(s).map(w => w[0].toUpperCase()+w.slice(1).toLowerCase()).join(' '),
+        sentence: s => s.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()),
+        camel: s => words(s).map((w,i)=> i===0 ? w.toLowerCase() : w[0].toUpperCase()+w.slice(1).toLowerCase()).join(''),
+        snake: s => words(s).map(w=>w.toLowerCase()).join('_'),
+      };
+      document.querySelectorAll('[data-mode]').forEach(btn=>{
+        btn.addEventListener('click', ()=> out.value = modes[btn.dataset.mode](inp.value || ''));
+      });
+    
+</script>
+</body>
+</html>

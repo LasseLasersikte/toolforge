@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JSON Formatter — ToolForge</title>
+<meta name="description" content="Beautify, validate, and minify JSON instantly in your browser.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>JSON Formatter</h1>
+  <p class="sub">Beautify, validate, and minify JSON instantly in your browser.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="json-in">Paste JSON</label>
+      <textarea id="json-in" placeholder='{"hello":"world"}'></textarea>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button class="btn btn-primary" id="json-beautify">Beautify</button>
+        <button class="btn btn-ghost" id="json-minify">Minify</button>
+      </div>
+      <div class="tool-out">
+        <label>Result</label>
+        <textarea id="json-out" readonly></textarea>
+        <p id="json-status" style="color:var(--text-dim);font-size:.85rem"></p>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const input = document.getElementById('json-in');
+      const out = document.getElementById('json-out');
+      const status = document.getElementById('json-status');
+      function parseOrError(){
+        try { return { ok:true, val: JSON.parse(input.value) }; }
+        catch(e){ return { ok:false, err: e.message }; }
+      }
+      document.getElementById('json-beautify').addEventListener('click', ()=>{
+        const r = parseOrError();
+        if (!r.ok) { status.textContent = 'Invalid JSON: ' + r.err; out.value=''; return; }
+        out.value = JSON.stringify(r.val, null, 2);
+        status.textContent = 'Valid JSON ✓';
+      });
+      document.getElementById('json-minify').addEventListener('click', ()=>{
+        const r = parseOrError();
+        if (!r.ok) { status.textContent = 'Invalid JSON: ' + r.err; out.value=''; return; }
+        out.value = JSON.stringify(r.val);
+        status.textContent = 'Valid JSON ✓';
+      });
+    
+</script>
+</body>
+</html>

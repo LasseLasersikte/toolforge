@@ -1,0 +1,11 @@
+{
+  "name": "toolforge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ToolForge — a beautiful browser toolkit SaaS with content-automation and ad slots built in.",
+  "scripts": {
+    "build": "node scripts/build-tools.js && node scripts/build-blog.js && node scripts/build-sitemap.js",
+    "content:new": "node scripts/generate-post.js && node scripts/build-blog.js && node scripts/build-sitemap.js",
+    "serve": "npx --yes serve public -l 4173"
+  }
+}

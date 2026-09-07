@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR Code Generator — ToolForge</title>
+<meta name="description" content="Turn any link or text into a downloadable QR code, instantly.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
+<link rel="stylesheet" href="/style.css">
+<script src="/vendor/qrcode.min.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="dot"></span>ToolForge</a>
+    <nav class="navlinks">
+      <a href="/tools/">Tools</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/blog/">Blog</a>
+    </nav>
+    <a class="btn btn-primary" href="/pricing.html">Get Pro</a>
+  </div>
+</header>
+
+<div class="tool-header wrap">
+  <h1>QR Code Generator</h1>
+  <p class="sub">Turn any link or text into a downloadable QR code, instantly.</p>
+</div>
+
+<section style="padding-top:12px">
+  <div class="wrap">
+    <div class="tool-panel">
+
+      <label for="qr-text">Text or URL</label>
+      <input id="qr-text" type="text" placeholder="https://example.com" value="https://toolforge.app">
+      <label for="qr-size">Size (px)</label>
+      <select id="qr-size"><option>200</option><option selected>300</option><option>400</option><option>600</option></select>
+      <div class="tool-out" style="text-align:center">
+        <canvas id="qr-canvas" width="300" height="300" style="background:#fff;border-radius:8px;margin-top:10px"></canvas>
+        <div style="margin-top:14px"><a id="qr-download" class="btn btn-primary" download="qrcode.png">Download PNG</a></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:22px"><a href="/tools/">← Back to all tools</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap"><div class="ad-slot">Ad space — reserved for sponsor placements (728×90)</div></div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div><span class="brand"><span class="dot"></span>ToolForge</span></div>
+    <div><a href="/tools/">Tools</a></div>
+    <div><a href="/pricing.html">Pricing</a></div>
+    <div><a href="/blog/">Blog</a></div>
+    <div>© 2026 ToolForge</div>
+  </div>
+</footer>
+<script>
+
+      const textEl = document.getElementById('qr-text');
+      const sizeEl = document.getElementById('qr-size');
+      const canvas = document.getElementById('qr-canvas');
+      const dl = document.getElementById('qr-download');
+      function render(){
+        const text = textEl.value || ' ';
+        const size = parseInt(sizeEl.value,10);
+        const qr = qrcode(0, 'M'); // type 0 = auto-detect smallest version
+        qr.addData(text);
+        qr.make();
+        const count = qr.getModuleCount();
+        const cell = Math.floor(size / count);
+        const pixelSize = cell * count;
+        canvas.width = pixelSize; canvas.height = pixelSize;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, pixelSize, pixelSize);
+        ctx.fillStyle = '#111';
+        for (let row = 0; row < count; row++) {
+          for (let col = 0; col < count; col++) {
+            if (qr.isDark(row, col)) ctx.fillRect(col * cell, row * cell, cell, cell);
+          }
+        }
+        dl.href = canvas.toDataURL('image/png');
+      }
+      textEl.addEventListener('input', render);
+      sizeEl.addEventListener('change', render);
+      render();
+    
+</script>
+</body>
+</html>
