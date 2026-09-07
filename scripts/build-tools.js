@@ -80,7 +80,7 @@ const TOOLS = [
         <canvas id="qr-canvas" width="300" height="300" style="background:#fff;border-radius:8px;margin-top:10px"></canvas>
         <div style="margin-top:14px"><a id="qr-download" class="btn btn-primary" download="qrcode.png">Download PNG</a></div>
       </div>`,
-    extraHead: `<script src="/vendor/qrcode.min.js"></script>`,
+    extraHead: `<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>`,
     script: `
       const textEl = document.getElementById('qr-text');
       const sizeEl = document.getElementById('qr-size');
