@@ -6,6 +6,7 @@ const path = require("path");
 
 const POSTS_DIR = path.join(__dirname, "..", "content", "posts");
 const OUT_DIR = path.join(__dirname, "..", "public", "blog");
+const SITE = process.env.SITE_URL || "https://toolforge.example.com";
 fs.mkdirSync(OUT_DIR, { recursive: true });
 
 function nav() {
@@ -35,6 +36,7 @@ function footer() {
 }
 
 function postPage(post) {
+  const url = `${SITE}/blog/${post.slug}.html`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -42,6 +44,14 @@ function postPage(post) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${post.title} — ToolForge Blog</title>
 <meta name="description" content="${post.intro}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="${post.title} — ToolForge Blog">
+<meta property="og:description" content="${post.intro}">
+<meta property="og:url" content="${url}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="${post.title} — ToolForge Blog">
+<meta name="twitter:description" content="${post.intro}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
 <link rel="stylesheet" href="/style.css">
 </head>
@@ -75,13 +85,23 @@ function indexPage(posts) {
       </div>`
     )
     .join("\n");
+  const url = `${SITE}/blog/`;
+  const description = "Tips on productivity, tooling, and getting more done in the browser.";
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog — ToolForge</title>
-<meta name="description" content="Tips on productivity, tooling, and getting more done in the browser.">
+<meta name="description" content="${description}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog — ToolForge">
+<meta property="og:description" content="${description}">
+<meta property="og:url" content="${url}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Blog — ToolForge">
+<meta name="twitter:description" content="${description}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
 <link rel="stylesheet" href="/style.css">
 </head>
