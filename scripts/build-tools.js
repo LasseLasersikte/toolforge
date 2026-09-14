@@ -5,8 +5,10 @@ const fs = require("fs");
 const path = require("path");
 
 const OUT_DIR = path.join(__dirname, "..", "public", "tools");
+const SITE = process.env.SITE_URL || "https://toolforge.example.com";
 
-function layout({ title, description, body, script, extraHead = "" }) {
+function layout({ slug, title, description, body, script, extraHead = "" }) {
+  const url = `${SITE}/tools/${slug}.html`;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -14,6 +16,14 @@ function layout({ title, description, body, script, extraHead = "" }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title} — ToolForge</title>
 <meta name="description" content="${description}">
+<link rel="canonical" href="${url}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${title} — ToolForge">
+<meta property="og:description" content="${description}">
+<meta property="og:url" content="${url}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="${title} — ToolForge">
+<meta name="twitter:description" content="${description}">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%237c5cff%22/></svg>">
 <link rel="stylesheet" href="/style.css">
 ${extraHead}

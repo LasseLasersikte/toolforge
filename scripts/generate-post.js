@@ -70,6 +70,66 @@ const TOPICS = [
       "Include units explicitly in specs to avoid ambiguity altogether.",
     ],
   },
+  {
+    tool: "case-converter",
+    title: "Title Case, Sentence Case, or camelCase: Picking the Right One",
+    intro: "Case conventions aren't arbitrary — each one signals something different to readers and to code. Here's when to use which.",
+    points: [
+      "Use Title Case for headlines and page titles, not body copy.",
+      "Use Sentence case for UI labels and buttons — it reads faster and feels less shouty.",
+      "Use camelCase for JavaScript variables, PascalCase for classes and components.",
+      "Use snake_case for database columns and most config file keys.",
+      "Batch-convert pasted copy instead of retyping it by hand.",
+    ],
+  },
+  {
+    tool: "color-picker",
+    title: "HEX, RGB, or HSL: Choosing the Right Color Format",
+    intro: "The same color looks identical on screen no matter which format you write it in — but each format is easier to work with for a different job.",
+    points: [
+      "Use HEX for CSS and design handoff — it's the most universally supported.",
+      "Use RGB(A) when you need to control transparency in code.",
+      "Use HSL when you're building a color scale — adjusting lightness alone keeps hues consistent.",
+      "Keep a documented palette instead of eyeballing colors from screenshots.",
+      "Check contrast ratios, not just visual preference, before finalizing text colors.",
+    ],
+  },
+  {
+    tool: "image-compressor",
+    title: "Why Your Images Are Slowing Down Your Site",
+    intro: "Unoptimized images are still the single biggest cause of slow page loads. A quick compress pass fixes most of it.",
+    points: [
+      "Compress before upload — don't rely on the CMS to do it for you.",
+      "JPEG for photos, PNG for graphics with transparency, and consider WebP for both.",
+      "Resize to the actual display dimensions instead of shipping a full-resolution original.",
+      "Compressing client-side keeps the original file from ever leaving your machine.",
+      "Re-check page weight after adding new images — it adds up fast.",
+    ],
+  },
+  {
+    tool: "lorem-ipsum",
+    title: "Placeholder Text Done Right: Lorem Ipsum and Its Alternatives",
+    intro: "Placeholder copy is supposed to be invisible to the eye and disappear before launch. Here's how to use it without it becoming a liability.",
+    points: [
+      "Generate placeholder text at the actual length your real copy will be, not a rough guess.",
+      "Use realistic word and sentence lengths so layouts don't break when real copy goes in.",
+      "Track placeholder text with a search-friendly marker so it can't slip into production.",
+      "Prefer filler that matches your content's tone for stakeholder reviews.",
+      "Swap it out before the final review — stakeholders remember placeholder typos.",
+    ],
+  },
+  {
+    tool: "word-counter",
+    title: "Word Count Targets That Actually Matter (and Ones That Don't)",
+    intro: "Word count is a proxy, not a goal. Here's where hitting a number really matters, and where it's a distraction.",
+    points: [
+      "Meta descriptions and title tags have hard character limits worth checking every time.",
+      "Social captions get cut off past a platform's limit — count before you post.",
+      "Longer isn't better for landing pages; scannable beats exhaustive.",
+      "Track reading time, not just word count, for blog posts.",
+      "Paste drafts in as you write instead of counting at the very end.",
+    ],
+  },
 ];
 
 function slugify(s) {
@@ -79,11 +139,15 @@ function slugify(s) {
 function pickNextTopic() {
   const existing = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith(".json"));
   const usedTitles = new Set(existing.map(f => JSON.parse(fs.readFileSync(path.join(POSTS_DIR, f))).title));
-  const next = TOPICS.find(t => !usedTitles.has(t.title));
-  return next || TOPICS[existing.length % TOPICS.length];
+  return TOPICS.find(t => !usedTitles.has(t.title));
 }
 
 const topic = pickNextTopic();
+if (!topic) {
+  console.log("No unused topics left in TOPICS — skipping to avoid publishing a duplicate post. Add new topics to scripts/generate-post.js.");
+  process.exit(0);
+}
+
 const slug = slugify(topic.title);
 const date = new Date().toISOString().slice(0, 10);
 
