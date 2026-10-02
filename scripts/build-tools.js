@@ -480,6 +480,8 @@ const TOOLS = [
           const canvas = document.createElement('canvas');
           canvas.width = img.width; canvas.height = img.height;
           const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(img, 0, 0);
           canvas.toBlob(blob => {
             const url = URL.createObjectURL(blob);
