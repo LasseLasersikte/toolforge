@@ -97,9 +97,9 @@
 
 <script>
 // Checkout is wired to a placeholder — connect a real Stripe account to accept payment.
-// See /README for the two-line swap once STRIPE_PUBLIC_KEY + price IDs are added.
+// Replace this function with a redirect to your Stripe Payment Link (or Checkout Session) per plan.
 function startCheckout(plan){
-  alert("This demo store doesn't have a live payment account connected yet.\n\nPlan selected: " + plan.toUpperCase() + "\n\nTo accept real payments, connect a Stripe account and drop your Payment Link URL into pricing.html — see the README.");
+  alert("This demo store doesn't have a live payment account connected yet.\n\nPlan selected: " + plan.toUpperCase() + "\n\nTo accept real payments, connect a Stripe account and drop your Payment Link URL into pricing.html.");
 }
 </script>
 </body>
