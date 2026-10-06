@@ -30,3 +30,11 @@ that shows an alert instead of charging anyone. To accept real payments:
 
 No backend, Stripe secret key, or webhook is required for this approach —
 Stripe Payment Links handle checkout entirely hosted on Stripe's side.
+
+## Deployment
+
+There is no deployment pipeline configured yet. `npm run build` produces a
+static site in `public/`, which can be deployed to any static host (e.g.
+Vercel, Netlify, GitHub Pages). Set `SITE_URL` when running the build so
+`scripts/build-sitemap.js` emits the real domain instead of the
+`toolforge.example.com` placeholder.
